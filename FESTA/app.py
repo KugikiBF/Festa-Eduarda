@@ -29,9 +29,18 @@ class Convidado:
         
         self.nome = self.nome.capitalize().strip()
         self.resposta = self.resposta.upper().strip()
-        if any(letra.isdigit() for letra in self.nome):
-            
-
+        nome_correcao = self.nome.replace(" ","")
+        if not nome_correcao.isalpha():
+            return'''
+                <h1> Erro no nome!</h1>
+                <a href='/'>Corrigir</a>
+            '''
+        try:
+            self.quantidade_total=int(self.quantidade)
+            if self.quantidade_total<=0 or self.quantidade_total>6:
+                return "<h1> Erro</h1> <p> <a href='/'>Voltar</a>"
+        except ValueError:
+            return "<h1> Erro</h1> <p> <a href='/'>Voltar</a>"
         if self.resposta == 'SIM':
             self.confirmado = True
             self.salvar_no_banco()
