@@ -45,10 +45,3 @@ class Convidado:
         
 
 
-c1 = Convidado()
-c1.cadastrar_convidado()
-c1.convite_finalizado()
-
-c2 = Convidado()
-c2.cadastrar_convidado()
-c2.convite_finalizado()

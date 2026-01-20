@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Especial</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .cartao {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 350px;
+            text-align: center;
+        }
+        h1 { color: #333; }
+        p { color: #666; }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; /* Para não estourar a largura */
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+
+    <div class="cartao">
+        <h1>🎉 Você foi convidado!</h1>
+        <p>Olá! Gostaria muito da sua presença na minha festa.</p>
+        
+        <form action="/enviar" method="POST">
+            
+            <label>Seu Nome Completo:</label>
+            <input type="text" name="campo_nome" required placeholder="Digite seu nome...">
+
+            <label>Você vai comparecer?</label>
+            <select name="campo_resposta">
+                <option value="SIM">Sim, com certeza!</option>
+                <option value="NAO">Infelizmente não posso</option>
+            </select>
+
+            <label>Quantas pessoas (Total com você)?</label>
+            <input type="number" name="campo_quantidade" value="1" min="1">
+
+            <button type="submit">Enviar Resposta</button>
+        </form>
+    </div>
+
+</body>
+</html>
