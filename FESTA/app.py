@@ -7,6 +7,17 @@ class Convidado:
         self.quantidade= quantidade
         self.resposta = resposta
 
+    def checar_lista(self):
+        conn= sqlite3.connect('festa.db')
+        cursor= conn.cursor()
+        cursor.execute("SELECT nome FROM convidados WHERE nome = ?",(self.nome,))
+        resultado= cursor.fetchone()
+        conn.close()
+        if resultado:
+            return True
+        else:
+            return False
+        
     def salvar_no_banco(self):
         conn= sqlite3.connect('festa.db')
         cursor=conn.cursor()
@@ -42,6 +53,13 @@ class Convidado:
         except ValueError:
             return "<h1> Erro</h1> <p> <a href='/'>Voltar</a>"
         if self.resposta == 'SIM':
+            if self.checar_lista():
+                return f"""
+                    <h1 style='color: orange'>Ops!</h1>
+                    <p>O nome <strong>{self.nome}</strong> já está na lista.</p>
+                    <p>Você não precisa confirmar duas vezes, relaxa!</p>
+                    <a href='/'>Voltar</a>
+                """
             self.confirmado = True
             self.salvar_no_banco()
             return f"Oba! {self.nome} confirmou presença com {self.quantidade} acompanhantes."

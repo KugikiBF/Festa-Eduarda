@@ -5,68 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convite Especial</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        body{
+            background-image: url(imgs/fundo-body.webp);
+            background-size: cover;
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            grid-template-rows: 100px 400px 100px;
+            gap: 10px;
         }
-        .cartao {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 350px;
+        .cartao{
+            grid-area: 2/2/3/3;
+            background-color: #1272aa;
+            background-size: 3000px;
+            display: grid;
+            grid-template-columns: 2fr 2fr;
+            grid-template-rows: 1fr 2fr 1fr;
+            border-radius: 25px;
+        }
+        .cartao_foto{
+            background-image: url(imgs/fundo-azul.avif);
+            grid-area: 1 / 1 / 4 / 2;
+            border-radius: 25px 0px  0px 25px;
+        }
+        h1{
+            grid-area: 1/2/2/3;
             text-align: center;
         }
-        h1 { color: #333; }
-        p { color: #666; }
-        
-        input, select {
-            width: 100%;
+        form{
+            grid-area: 2/2/4/3;
+            display: flex;
+            flex-direction: column;
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box; /* Para não estourar a largura */
+            text-align: center;
         }
-        
         button {
-            background-color: #4CAF50;
+            font-size: 18px;
+            padding: 15px;
+            background-color: #00a2ff;
             color: white;
-            padding: 12px;
             border: none;
-            border-radius: 5px;
-            width: 100%;
             cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
+            margin-top: 20px;
         }
-        button:hover { background-color: #45a049; }
+        .info{
+            font-size: 20px;
+        }
+        input,select{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 7px;
+            font-size: 17px;
+        }
     </style>
 </head>
 <body>
 
     <div class="cartao">
+        <div class="cartao_foto"></div>
         <h1>🎉 Você foi convidado!</h1>
-        <p>Olá! Gostaria muito da sua presença na minha festa.</p>
         
         <form action="/enviar" method="POST">
             
-            <label>Seu Nome Completo:</label>
-            <input type="text" name="campo_nome" required placeholder="Digite seu nome...">
+            <div class="info">
+                <label>Seu Nome Completo:</label>
+                <input type="text" name="campo_nome" required placeholder="Digite seu nome...">
+            </div>
 
-            <label>Você vai comparecer?</label>
-            <select name="campo_resposta">
-                <option value="SIM">Sim, com certeza!</option>
-                <option value="NAO">Infelizmente não posso</option>
-            </select>
+            <div class="info">
+                <label>Você vai comparecer?</label>
+                <select name="campo_resposta">
+                    <option value="SIM">Sim, com certeza!</option>
+                    <option value="NAO">Infelizmente não posso</option>
+                </select>
+            </div>
 
-            <label>Quantas pessoas (Total com você)?</label>
-            <input type="number" name="campo_quantidade" value="1" min="1">
+            <div class="info">
+                <label>Quantas pessoas (Total com você)?</label>
+                <input type="number" name="campo_quantidade" value="1" min="1">
+            </div>
 
             <button type="submit">Enviar Resposta</button>
         </form>
