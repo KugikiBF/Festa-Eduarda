@@ -21,15 +21,6 @@ class Convidado:
     def salvar_no_banco(self):
         conn= sqlite3.connect('festa.db')
         cursor=conn.cursor()
-
-        cursor.execute('''
-                    CREATE TABLE IF NOT EXISTS convidados (
-                       nome TEXT,
-                       resposta TEXT,
-                       quantidade INTEGER
-            )
-        ''')
-
         cursor.execute('INSERT INTO convidados VALUES(?, ?, ?)',
                        (self.nome,self.resposta,self.quantidade))
 
@@ -42,30 +33,29 @@ class Convidado:
         self.resposta = self.resposta.upper().strip()
         nome_correcao = self.nome.replace(" ","")
         if not nome_correcao.isalpha():
-            return'''
-                <h1> Erro no nome!</h1>
-                <a href='/'>Corrigir</a>
-            '''
+            
+            return 'ERRO: Seu nome está errado, tente novamente.', True
         try:
             self.quantidade_total=int(self.quantidade)
-            if self.quantidade_total<=0 or self.quantidade_total>6:
-                return "<h1> Erro</h1> <p> <a href='/'>Voltar</a>"
+            if self.quantidade_total<=0 or self.quantidade_total>5:
+                
+                return 'ERRO: Capacidade de acompanhantes excedida.', True
         except ValueError:
-            return "<h1> Erro</h1> <p> <a href='/'>Voltar</a>"
+            
+            return 'Voltar', False
         if self.resposta == 'SIM':
             if self.checar_lista():
-                return f"""
-                    <h1 style='color: orange'>Ops!</h1>
-                    <p>O nome <strong>{self.nome}</strong> já está na lista.</p>
-                    <p>Você não precisa confirmar duas vezes, relaxa!</p>
-                    <a href='/'>Voltar</a>
-                """
+                
+                return 'Voce já está confirmado', True
+                    
             self.confirmado = True
             self.salvar_no_banco()
-            return f"Oba! {self.nome} confirmou presença com {self.quantidade} acompanhantes."
+            return f"Oba! {self.nome} confirmou presença com {self.quantidade-1} acompanhantes.", False
         else:
             self.confirmado = False
-            return "Que pena! Fica para a próxima."
+            self.salvar_no_banco()
+            return "Que pena! Fica para a próxima.", False
+            
         
 
 from flask import Flask, render_template, request
@@ -81,14 +71,37 @@ def receber_resposta():
     nome_site = request.form['campo_nome']
     reposta_site = request.form["campo_resposta"]
     quantidade_site = request.form["campo_quantidade"]
-
-
+    quantidade_site = int (quantidade_site)
     pessoa = Convidado(nome_site,reposta_site,quantidade_site)
+    mensagem_recebida,houve_erro= pessoa.processar_resposta()
+    return render_template('index.html', mensagem_na_tela=mensagem_recebida,
+                           erro=houve_erro)
 
-    resultado= pessoa.processar_resposta()
-    return resultado
+
+@app.route('/lista')
+def ver_lista():
+    conexao= sqlite3.connect('festa.db')
+    cursor= conexao.cursor()
+    cursor.execute("SELECT * FROM convidados")
+    pessoas = cursor.fetchall()
+    conexao.close()
+    return render_template ('lista.html', lista_pessoas=pessoas)
+
+def criar_tabela_no_inicio():
+    conn = sqlite3.connect('festa.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS convidados (
+            nome TEXT,
+            resposta TEXT,
+            quantidade INTEGER
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
 if __name__=='__main__':
+    criar_tabela_no_inicio()
     app.run(debug=True)
 
     

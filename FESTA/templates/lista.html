@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de presença</title>
+</head>
+<body>
+    <div class="container_lista">
+        <h1>Lista de Convidados</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Vai?</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pessoa in lista_pessoas %}
+                <tr>
+                    <td>{{ pessoa[0] }}</td>
+
+                    <td>
+                        {% if pessoa[1] == 'SIM' %}
+                            <span>SIM</span>
+                        {% else %}
+                            <span>Não</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{pessoa[2]}}
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        <a href="/">Voltar pro Convite</a>
+    </div>
+</body>
+</html>
