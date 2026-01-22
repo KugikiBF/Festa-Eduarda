@@ -42,8 +42,10 @@ O projeto segue boas práticas de programação, incluindo **Orientação a Obje
 
 ## 📸 Screenshots
 
-<img width="1360" height="639" alt="Convite Especial - Google Chrome 22_01_2026 13_55_49" src="https://github.com/user-attachments/assets/8161dc1c-1470-453b-92dd-1f9e1c6a4286" />
-<img width="344" height="323" alt="Convite Especial - Google Chrome 22_01_2026 13_56_06" src="https://github.com/user-attachments/assets/a469ddb4-7bd8-4712-9e1a-d9c5f94c10cc" />
+
+<img width="1297" height="632" alt="Convite Especial - Google Chrome 22_01_2026 14_51_07" src="https://github.com/user-attachments/assets/43870bc4-cab8-4eb6-b031-1ee327e7cef5" />
+<img width="1360" height="639" alt="Convite Especial - Google Chrome 22_01_2026 13_55_49" src="https://github.com/user-attachments/assets/f4c43aea-1941-4bd7-bfc4-f05de62b518a" />
+<img width="1360" height="728" alt="app py - Festa-Eduarda - Visual Studio Code 22_01_2026 14_53_15" src="https://github.com/user-attachments/assets/37b1543f-5ba1-4394-a658-d1626597b5e1" />
 
 
 
