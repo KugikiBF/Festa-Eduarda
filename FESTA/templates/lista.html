@@ -3,40 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de presença</title>
+    <title>Lista de Presença</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 1. Reset e Fundo igual ao do Index */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Puxando a imagem da pasta static corretamente */
+            background-image: url("{{ url_for('static', filename='imgs/fundo-body.webp') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinha no topo com um pouco de margem */
+        }
+
+        /* 2. O Cartão da Lista (Efeito Vidro) */
+        .container-lista {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 800px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #015564;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        /* 3. Tabela Moderna */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden; /* Arredonda os cantos da tabela */
+        }
+
+        thead {
+            background-color: #015564;
+            color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* Efeito zebrado nas linhas */
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Efeito ao passar o mouse na linha */
+        tbody tr:hover {
+            background-color: #e0f7fa;
+            transition: 0.2s;
+        }
+
+        /* Cores para SIM e NÃO */
+        .tag {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .sim { background-color: #d4edda; color: #155724; }
+        .nao { background-color: #f8d7da; color: #721c24; }
+
+        /* 4. Botão Voltar */
+        .btn-voltar {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-voltar:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-    <div class="container_lista">
-        <h1>Lista de Convidados</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Vai?</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for pessoa in lista_pessoas %}
-                <tr>
-                    <td>{{ pessoa[0] }}</td>
 
-                    <td>
-                        {% if pessoa[1] == 'SIM' %}
-                            <span>SIM</span>
-                        {% else %}
-                            <span>Não</span>
-                        {% endif %}
-                    </td>
+    <div class="container-lista">
+        <h1>📋 Lista de Convidados</h1>
 
-                    <td>
-                        {{pessoa[2]}}
-                    </td>
-                </tr>
-                {%endfor%}
-            </tbody>
-        </table>
-        <a href="/">Voltar pro Convite</a>
+        {% if lista_pessoas %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Resposta</th>
+                        <th>Acompanhantes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pessoa in lista_pessoas %}
+                    <tr>
+                        <td style="font-weight: 600; color: #333;">{{ pessoa[0] }}</td>
+                        
+                        <td>
+                            {% if pessoa[1] == 'SIM' %}
+                                <span class="tag sim">CONFIRMADO</span>
+                            {% else %}
+                                <span class="tag nao">NÃO VAI</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if pessoa[1] == 'SIM' %}
+                                {{ pessoa[2] }} pessoa(s)
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">Ninguém respondeu ainda...</p>
+        {% endif %}
+
+        <a href="/" class="btn-voltar">⬅ Voltar ao Convite</a>
     </div>
+
 </body>
 </html>
