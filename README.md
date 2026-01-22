@@ -42,7 +42,9 @@ O projeto segue boas práticas de programação, incluindo **Orientação a Obje
 
 ## 📸 Screenshots
 
-*(Você pode adicionar prints da tela inicial e da tela de lista aqui)*
+<img width="1360" height="728" alt="Convite Especial - Google Chrome 22_01_2026 13_55_49" src="https://github.com/user-attachments/assets/fda323a8-4a53-4111-8a83-584e857aa02e" />
+<img width="1360" height="728" alt="Convite Especial - Google Chrome 22_01_2026 13_56_06" src="https://github.com/user-attachments/assets/88192d2f-1798-439b-a472-cd4acc4b3d18" />
+
 
 ## 📦 Como Rodar o Projeto
 
